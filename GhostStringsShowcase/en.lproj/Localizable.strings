@@ -1,0 +1,14 @@
+"hero_badge" = "✦ OTA Content Layer";
+"hero_title" = "The Invisible String.";
+"hero_subtitle" = "Change any word in your app — instantly, without a rebuild.";
+
+"stat_1_value" = "0ms";
+"stat_1_label" = "Redeploy Time";
+
+"stat_2_value" = "1KB";
+"stat_2_label" = "SDK Size";
+
+"stat_3_value" = "100+";
+"stat_3_label" = "Languages";
+
+"promo_text" = "✦ GhostStrings Enterprise Edition — 2026";

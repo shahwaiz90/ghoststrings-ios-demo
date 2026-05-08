@@ -1,0 +1,15 @@
+{
+  "originHash" : "61a1ae62b0bb58059ebb5a212cd7b89c401f9ff7d246ca8aafd674db43522e90",
+  "pins" : [
+    {
+      "identity" : "ghoststrings-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/shahwaiz90/ghoststrings-ios",
+      "state" : {
+        "revision" : "bb771be754d85534e8bafd165f77dee78e1de65f",
+        "version" : "1.4.0"
+      }
+    }
+  ],
+  "version" : 3
+}
