@@ -1,26 +1,26 @@
-# GhostStrings Showcase 👻🎬
+# GhostStrings iOS Showcase 👻📱
 
-This project demonstrates the powerful "Zero-Code" integration of GhostStrings across Android and iOS.
+This project demonstrates the powerful "Zero-Code" integration of the GhostStrings SDK on iOS using Swift Package Manager.
 
-## 📱 iOS Showcase (SwiftUI)
-- Uses standard `NSLocalizedString`.
-- Features `GhostStringsKeys.swift` for clean key management.
-- Implements `GhostStringsProvider` for instant UI updates.
-- **To Run**: Open `GhostStringsShowcase.xcodeproj` in Xcode and run on any simulator.
+## 🚀 Features
+- **Zero-Code Change**: Uses standard `NSLocalizedString` and `Text("...")`.
+- **SwiftUI Support**: Seamless integration with SwiftUI for reactive updates.
+- **Automatic Refresh**: UI updates instantly when cloud strings are fetched.
 
-## 🤖 Android Showcase (Compose)
-- Located in `/GhostStrings-Android/app`.
-- Uses native `stringResource(R.string...)`.
-- Demonstrates seamless background sync and refresh.
-- **To Run**: Open the `/GhostStrings-Android` folder in Android Studio.
+## 🛠️ How to Run
+
+1. Open `GhostStringsShowcase.xcodeproj` in Xcode.
+2. Xcode will automatically resolve the GhostStrings SDK via Swift Package Manager.
+3. Select any iOS Simulator.
+4. Hit **Run** (Cmd + R).
 
 ## 🧪 Testing the OTA Effect
-1. Open the app on your simulator/device.
-2. Go to the GhostStrings Dashboard (`/public/projectdetail.html`).
-3. Find the key `hero_title`.
-4. Change the text and click Save.
-5. Watch the app UI update **instantly** without any interaction! 🪄
 
-## 📦 SDK Versions Used
-- Android SDK: `1.1.2`
-- iOS SDK: `1.1.3`
+1. Open the app on your simulator.
+2. Go to your [GhostStrings Dashboard](https://ghoststrings.ai).
+3. Select your project and edit any string value (e.g., `hero_title`).
+4. Click Save.
+5. Re-launch the app (or trigger a sync) and watch the text update instantly without an App Store update! 🪄
+
+## 📦 Integration Details
+This demo application relies on the public [GhostStrings iOS SDK Repository](https://github.com/shahwaiz90/ghoststrings-ios) which distributes the pre-compiled XCFramework.
