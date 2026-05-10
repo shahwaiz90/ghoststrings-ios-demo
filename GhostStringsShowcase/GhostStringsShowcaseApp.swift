@@ -12,7 +12,7 @@ struct GhostStringsShowcaseApp: App {
 
         GhostStrings.shared.initSDK(config: GhostStringsConfig(
             projectId: projectId,
-            baseUrl: "https://ghoststrings.ai",
+            baseUrl: "https://api.ghoststrings.ai",
             debugMode: true
         ))
     }
