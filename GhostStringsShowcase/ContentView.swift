@@ -5,6 +5,14 @@ struct ContentView: View {
     @ObservedObject var ghostStrings = GhostStrings.shared
     @State private var isAnimating = false
     @State private var isSyncing = false
+    @State private var supportedLanguages: [GhostLanguage] = []
+    
+    private func changeLanguage(to localeId: String) {
+        let langCode = localeId == "en" ? nil : localeId
+        GhostStrings.shared.setLanguage(langCode) { _ in
+            // Re-fetch localized strings list on change completed
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -88,12 +96,55 @@ struct ContentView: View {
                     
                     Spacer().frame(height: 20)
                     
+                    // Language Selection Dropdown
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Active Language")
+                            .font(.system(size: 11, weight: .bold))
+                            .foregroundColor(.secondary)
+                            .textCase(.uppercase)
+                            .padding(.horizontal)
+                        
+                        Menu {
+                            Button("English (EN)", action: {
+                                changeLanguage(to: "en")
+                            })
+                            ForEach(supportedLanguages.filter { $0.localeId != "en" }, id: \.localeId) { langObj in
+                                Button("\(langObj.label) (\(langObj.localeId.uppercased()))", action: {
+                                    changeLanguage(to: langObj.localeId)
+                                })
+                            }
+                        } label: {
+                            HStack {
+                                let activeLang = GhostStrings.shared.getLanguage() ?? "en"
+                                let currentLangObj = supportedLanguages.first(where: { $0.localeId == activeLang })
+                                Text(currentLangObj != nil ? "\(currentLangObj!.label) (\(currentLangObj!.localeId.uppercased()))" : "English (EN)")
+                                    .font(.system(size: 14, weight: .bold))
+                                    .foregroundColor(.primary)
+                                Spacer()
+                                Image(systemName: "chevron.up.chevron.down")
+                                    .foregroundColor(.secondary)
+                                    .font(.system(size: 12))
+                             }
+                            .padding(.horizontal, 16)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 48)
+                            .background(Color.black.opacity(0.04))
+                            .cornerRadius(12)
+                            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.blue.opacity(0.1), lineWidth: 1))
+                        }
+                        .padding(.horizontal)
+                    }
+                    
                     // Manual Sync Button
                     Button(action: {
                         isSyncing = true
                         Task {
                             await GhostStrings.shared.sync()
-                            isSyncing = false
+                            let list = await GhostStrings.shared.getSupportedLanguages(force: true)
+                            await MainActor.run {
+                                self.supportedLanguages = list
+                                self.isSyncing = false
+                            }
                         }
                     }) {
                         HStack {
@@ -135,11 +186,21 @@ struct ContentView: View {
             }
             .refreshable {
                 await GhostStrings.shared.sync()
+                let list = await GhostStrings.shared.getSupportedLanguages(force: true)
+                await MainActor.run {
+                    self.supportedLanguages = list
+                }
             }
         }
         .onAppear {
             withAnimation(Animation.easeInOut(duration: 0.9).repeatForever(autoreverses: true)) {
                 isAnimating = true
+            }
+            Task {
+                let list = await GhostStrings.shared.getSupportedLanguages()
+                await MainActor.run {
+                    self.supportedLanguages = list
+                }
             }
         }
     }
