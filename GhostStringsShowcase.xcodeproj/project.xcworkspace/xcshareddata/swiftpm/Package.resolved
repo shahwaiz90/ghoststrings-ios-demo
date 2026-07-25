@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/shahwaiz90/ghoststrings-ios",
       "state" : {
-        "revision" : "b4a76090e6843845f8cd7001d5e4e5b70279dcbc",
-        "version" : "1.4.1"
+        "revision" : "12a4d68feef5b42bbd6b15f7e20726d32a8db7fc",
+        "version" : "1.4.4"
       }
     }
   ],

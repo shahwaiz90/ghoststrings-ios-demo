@@ -142,7 +142,6 @@ struct ContentView: View {
                         .padding(.horizontal)
                     }
                     
-                    // Manual Sync Button
                     Button(action: {
                         isSyncing = true
                         Task {
@@ -151,6 +150,12 @@ struct ContentView: View {
                             await MainActor.run {
                                 self.supportedLanguages = list
                                 self.isSyncing = false
+                                
+                                // Re-validate active language selection
+                                let activeLang = GhostStrings.shared.getLanguage() ?? "en"
+                                if activeLang != "en" && !list.contains(where: { $0.localeId == activeLang }) {
+                                    changeLanguage(to: "en")
+                                }
                             }
                         }
                     }) {
@@ -196,6 +201,12 @@ struct ContentView: View {
                 let list = await GhostStrings.shared.getSupportedLanguages(force: true)
                 await MainActor.run {
                     self.supportedLanguages = list
+                    
+                    // Re-validate active language selection
+                    let activeLang = GhostStrings.shared.getLanguage() ?? "en"
+                    if activeLang != "en" && !list.contains(where: { $0.localeId == activeLang }) {
+                        changeLanguage(to: "en")
+                    }
                 }
             }
         }
@@ -207,6 +218,12 @@ struct ContentView: View {
                 let list = await GhostStrings.shared.getSupportedLanguages()
                 await MainActor.run {
                     self.supportedLanguages = list
+                    
+                    // Re-validate active language selection
+                    let activeLang = GhostStrings.shared.getLanguage() ?? "en"
+                    if activeLang != "en" && !list.contains(where: { $0.localeId == activeLang }) {
+                        changeLanguage(to: "en")
+                    }
                 }
             }
         }
