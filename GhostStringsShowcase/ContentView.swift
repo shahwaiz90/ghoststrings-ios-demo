@@ -117,9 +117,16 @@ struct ContentView: View {
                             HStack {
                                 let activeLang = GhostStrings.shared.getLanguage() ?? "en"
                                 let currentLangObj = supportedLanguages.first(where: { $0.localeId == activeLang })
-                                Text(currentLangObj != nil ? "\(currentLangObj!.label) (\(currentLangObj!.localeId.uppercased()))" : "English (EN)")
+                                let fallbackLabel: String = {
+                                    if activeLang == "en" { return "English (EN)" }
+                                    let locale = Locale(identifier: activeLang)
+                                    let name = locale.localizedString(forLanguageCode: activeLang)?.capitalized ?? activeLang.uppercased()
+                                    return "\(name) (\(activeLang.uppercased()))"
+                                }()
+                                Text(currentLangObj != nil ? "\(currentLangObj!.label) (\(currentLangObj!.localeId.uppercased()))" : fallbackLabel)
                                     .font(.system(size: 14, weight: .bold))
                                     .foregroundColor(.primary)
+
                                 Spacer()
                                 Image(systemName: "chevron.up.chevron.down")
                                     .foregroundColor(.secondary)
